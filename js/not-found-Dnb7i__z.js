@@ -1,0 +1,1 @@
+import{_ as a}from"./fallback.vue_vue_type_script_setup_true_lang-DjSUgX7F.js";import{a3 as o,ad as e,ae as t,a9 as r}from"../jse/index-index-6T_F_aab.js";import"./bootstrap-D6ZMjPTL.js";import"./load-uMiYOm2W.js";import"./rotate-cw-CkR0o2DC.js";const u=o({name:"Fallback404Demo",__name:"not-found",setup(n){return(m,s)=>(e(),t(r(a),{status:"404"}))}});export{u as default};
