@@ -27,10 +27,7 @@ jobs:
       - name: Build
         run: pnpm run build:antd
 
-      - name: Sync files
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      - name:  Upload build artifacts (上传构建产物)
+        uses: actions/upload-pages-artifact@v2
         with:
-          server: ${{ secrets.PRO_FTP_HOST }}
-          username: ${{ secrets.WEB_ANTD_FTP_ACCOUNT }}
-          password: ${{ secrets.WEB_ANTD_FTP_PASSWORD }}
-          local-dir: ./apps/web-antd/dist/
+          path: "./apps/web-naive/dist/"
