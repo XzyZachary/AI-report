@@ -1,0 +1,45 @@
+# name: Dependabot post-update
+name: Build detection
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened]
+    branches:
+      - main
+
+env:
+  HUSKY: '0'
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  main:
+    # if: ${{ github.actor == 'dependabot[bot]' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Sed Config Base
+        shell: bash
+        run: |
+          sed -i  "s#VITE_COMPRESS\s*=.*#VITE_COMPRESS = gzip#g" ./apps/web-antd/.env.production
+          sed -i  "s#VITE_PWA\s*=.*#VITE_PWA = true#g" ./apps/web-antd/.env.production
+          cat ./apps/web-antd/.env.production
+
+      - name: Setup Node
+        uses: ./.github/actions/setup-node
+
+      - name: Build
+        run: pnpm run build:antd
+
+      - name: Sync files
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.PRO_FTP_HOST }}
+          username: ${{ secrets.WEB_ANTD_FTP_ACCOUNT }}
+          password: ${{ secrets.WEB_ANTD_FTP_PASSWORD }}
+          local-dir: ./apps/web-antd/dist/
