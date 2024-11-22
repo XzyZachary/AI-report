@@ -30,4 +30,4 @@ jobs:
       - name:  Upload build artifacts (上传构建产物)
         uses: actions/upload-pages-artifact@v2
         with:
-          path: "./apps/web-naive/dist/"
+          path: "./apps/web-antd/dist/"
