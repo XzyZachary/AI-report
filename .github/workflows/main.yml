@@ -1,6 +1,7 @@
 # name: Dependabot post-update
-name: main
+name: Build detection
 on:
+  push:
     branches: [main]
 
 jobs:
